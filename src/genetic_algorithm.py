@@ -1,6 +1,5 @@
 """
 genetic_algorithm.py
-=====================
 
 Implementacion base y reutilizable de un Algoritmo Genetico (AG) con
 codificacion binaria. Este modulo es la "pieza comun" que todos los
@@ -9,18 +8,18 @@ ejercicios de la actividad importan y configuran segun sus necesidades
 mutacion, numero de individuos preservados por elitismo, etc.).
 
 Diseno general
---------------
-1. Cada individuo es una cadena de bits (lista de 0s y 1s).
-2. `decode` transforma esa cadena de bits en uno o varios numeros reales
-   dentro de un rango definido (esto resuelve el mapeo binario -> real
-   que piden los ejercicios 1 y 2).
-3. La funcion de aptitud (fitness) es siempre inyectada desde fuera, asi
-   el mismo motor sirve para maximizar o minimizar cualquier funcion.
-4. La seleccion es por torneo, el cruce es de un punto y la mutacion es
-   "bit flip" con probabilidad `pm`.
-5. El elitismo es configurable: `n_elite` define cuantos de los mejores
-   individuos de la generacion actual pasan intactos a la siguiente
-   (por defecto 1, pero el Ejercicio 4 lo cambia a 3).
+
+Cada individuo es una cadena de bits (lista de 0s y 1s).
+`decode` transforma esa cadena de bits en uno o varios numeros reales
+dentro de un rango definido (esto resuelve el mapeo binario -> real
+que piden los ejercicios 1 y 2).
+La funcion de aptitud (fitness) es siempre inyectada desde fuera, asi
+el mismo motor sirve para maximizar o minimizar cualquier funcion.
+La seleccion es por torneo, el cruce es de un punto y la mutacion es
+"bit flip" con probabilidad `pm`.
+El elitismo es configurable: `n_elite` define cuantos de los mejores
+individuos de la generacion actual pasan intactos a la siguiente
+(por defecto 1, pero el Ejercicio 4 lo cambia a 3).
 
 Todas las funciones estan documentadas con docstrings estilo Google para
 que el README y cualquier herramienta de documentacion automatica puedan
@@ -37,9 +36,7 @@ from typing import Callable, List, Sequence, Tuple
 Individuo = List[int]  # Un individuo es una lista de bits (0/1)
 
 
-# ---------------------------------------------------------------------------
-# Codificacion / Decodificacion binaria
-# ---------------------------------------------------------------------------
+# Codificacion, se pasa a Decodificacion binaria
 
 def decodificar_variable(bits: Sequence[int], rango: Tuple[float, float]) -> float:
     """Convierte una subcadena de bits en un numero real dentro de `rango`.
@@ -95,9 +92,8 @@ def decodificar_cromosoma(
     return valores
 
 
-# ---------------------------------------------------------------------------
+
 # Operadores geneticos
-# ---------------------------------------------------------------------------
 
 def crear_individuo(n_bits: int) -> Individuo:
     """Genera un individuo aleatorio de `n_bits` bits."""
@@ -173,9 +169,9 @@ def aplicar_elitismo(
     return [list(poblacion[idx]) for idx in mejores_indices]
 
 
-# ---------------------------------------------------------------------------
+
 # Motor principal del Algoritmo Genetico
-# ---------------------------------------------------------------------------
+
 
 @dataclass
 class ResultadoAG:
